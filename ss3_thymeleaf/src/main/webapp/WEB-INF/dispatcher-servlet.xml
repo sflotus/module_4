@@ -11,10 +11,10 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--Khai bao vi tri dat package/ class là controller, service..-->
-    <context:component-scan base-package="com.example"/>
+    <context:component-scan base-package="org.arthur.ss3_thymeleaf"/>
     <mvc:annotation-driven/>
 
-    <!-- Đây là ViewResolve tiêu chuẩn được sử dụng để xử lý các vieư/ file .jso    -->
+    <!-- Đây là ViewResolve tiêu chuẩn được sử dụng để xử lý các views/ file .jso    -->
 <!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
         <!--Khai báo vị trí đặt view-->
 <!--        Được tính từ package webapp-->

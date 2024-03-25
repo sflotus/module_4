@@ -11,32 +11,16 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--Khai bao vi tri dat package/ class là controller, service..-->
-    <context:component-scan base-package="com.example"/>
+    <context:component-scan base-package="org.arthur.ss4_data_binding"/>
     <mvc:annotation-driven/>
 
     <!-- Đây là ViewResolve tiêu chuẩn được sử dụng để xử lý các vieư/ file .jso    -->
-<!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--Khai báo vị trí đặt view-->
 <!--        Được tính từ package webapp-->
-<!--        <property name="prefix" value="/WEB-INF/views/"/>-->
-        <!--Khai báo đuôi file của view-->
-<!--        <property name="suffix" value=".jsp"/>-->
-<!--    </bean>-->
-
-<!--    Config thymeleaf-->
-    <bean id="viewResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver" >
         <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".html"/>
-        <property name="characterEncoding" value="UTF-8"/>
-    </bean>
-
-    <bean id="engine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-        <property name="templateResolver" ref="viewResolver"/>
-    </bean>
-
-    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="engine"/>
-        <property name="characterEncoding" value="UTF-8"/>
+        <!--Khai báo đuôi file của view-->
+        <property name="suffix" value=".jsp"/>
     </bean>
 
 </beans>
