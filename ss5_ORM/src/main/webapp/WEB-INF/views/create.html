@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:fragment="~{list::link}" >
+</head>
+<body>
+<center>
+    <h1>Music Management</h1>
+    <h2>Add New Song</h2>
+</center>
+<div align="center">
+    <form method="post" th:object="${music}" th:action="@{/create}">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Music Name:</th>
+                <td>
+                    <input type="text" th:field="*{song}" id="song" size="45" required/>
+                    <br>
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <th>SINGER:</th>
+                <td>
+                    <input type="text" th:field="*{singer}" id="singer" size="45" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>MUSIC TYPE:</th>
+                <td>
+                    <input type="text" th:field="*{musicType}" id="musicType" size="45" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>LINK:</th>
+                <td>
+                    <input type="text" th:field="*{link}" id="link" size="45" required/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-outline-warning" type="button" value="Cancel" onclick="window.location.href='/'" />
+                    <input class="btn btn-outline-success" type="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

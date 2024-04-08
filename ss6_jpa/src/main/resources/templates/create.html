@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:replace="~{list::getBootstrap}">
+    <link rel="stylesheet" href="../css/css_form.css">
+</head>
+<body>
+<center>
+    <h1><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/}">Student Management</a></h1>
+    <h2>Add new Student</h2>
+    <p id="msg" th:text="${msg}" hidden="hidden"></p>
+</center>
+
+<div align="center">
+    <form method="post" th:object="${student}" id="form">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><label for="name">Name:</label></th>
+                <td>
+                    <input type="text" th:field="*{name}" id="name" size="45" autocomplete="off"/>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="email">Email:</label></th>
+                <td>
+                    <input type="text" th:field="*{email}" id="email" size="45" autocomplete="off"/>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="address">Address:</label></th>
+                <td>
+                    <input type="text" th:field="*{address}" id="address" size="45" autocomplete="off"/>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>Class:</th>
+                <td>
+                    <select class="btn border border-secondary" th:field="*{studentClass}">
+                        <option th:each="class:${classList}"
+                                th:value="${class.id}"
+                                th:text="${class.name}">
+                        </option>
+                    </select>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        New
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-outline-warning" type="button" value="Cancel"
+                           onclick="window.location.href='/'"/>
+                    <input class="btn btn-outline-success" type="submit" value="Save" onclick="confirmSubmit()"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- Modal add New Class -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/class/create" method="post" id="clasFrom" th:object="${class}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New Class</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="newClass">Name:</label>
+                    <input th:field="*{name}" type="text" name="newClass" id="newClass" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-success">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script th:insert="~{list::importScript}"></script>
+<script>
+    var msg = document.getElementById("msg").textContent
+    if (!(msg === "")) {
+        Swal.fire({
+            title: "Success!",
+            text: msg,
+            icon: "success"
+        });
+    }
+</script>
+</body>
+</html>

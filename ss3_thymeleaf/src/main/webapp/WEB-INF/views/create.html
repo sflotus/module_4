@@ -3,8 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:replace="~{list::link}">
 </head>
 <body>
-
+    <center>
+        <h1>Product Management</h1>
+        <h2>Add New Product</h2>
+    </center>
+    <div align="center">
+        <form method="post" th:object="${newProduct}" th:action="@{/create}">
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Product Name:</th>
+                    <td>
+                        <input type="text" th:field="*{name}" id="name" size="45" required/>
+                        <br>
+                        <span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Product price:</th>
+                    <td>
+                        <input type="number" th:field="*{price}" id="price" size="45" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Product description:</th>
+                    <td>
+                        <input type="text" th:field="*{desc}" id="description" size="45" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Product Origin:</th>
+                    <td>
+                        <input type="text" th:field="*{origin}" id="origin" size="45" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input class="btn btn-outline-warning" type="button" value="Cancel" onclick="window.location.href='/'" />
+                        <input class="btn btn-outline-success" type="submit" value="Save" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </body>
 </html>

@@ -29,17 +29,37 @@ public class ProductRepo implements IProductRepo {
     }
 
     @Override
-    public void update(Product product) {
-
+    public boolean update(Product product) {
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getId()==product.getId()){
+                productList.get(i).setPrice(product.getPrice());
+                productList.get(i).setName(product.getName());
+                productList.get(i).setDesc(product.getDesc());
+                productList.get(i).setOrigin(product.getOrigin());
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public void delete(int id) {
-
+    public boolean delete(int id) {
+        for(int i=0;i<productList.size();i++){
+            if(productList.get(i).getId()==id){
+                productList.remove(productList.get(i));
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Product getInfoById(int id) {
+        for(Product product:productList){
+            if(product.getId()==id){
+                return product;
+            }
+        }
         return null;
     }
 
