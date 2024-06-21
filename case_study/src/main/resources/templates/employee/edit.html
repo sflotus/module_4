@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{employee/list::title}"></title>
+    <link th:replace="layout/fragment::getBootstrap">
+    <link rel="stylesheet" href="/css/css_form.css">
+</head>
+<body>
+<div th:replace="layout/fragment::create_search_fragment('/employee/create','/employee/list',${valueSearch})"></div>
+<script th:replace="layout/fragment::importScript"></script>
+
+</body>
+</html>

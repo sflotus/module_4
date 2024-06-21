@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Facility</title>
+    <link th:replace="layout/fragment::getBootstrap">
+</head>
+<body>
+<div th:replace="layout/fragment::create_search_fragment('/facility/create','/facility/list',${valueSearch})"></div>
+<p id="msg" th:text="${msg}" hidden="hidden"></p>
+<table class="table table-hover table-striped" id="tableStudent">
+    <thead>
+    <tr>
+        <th style="width: 100px;">#</th>
+        <th style="width: 200px;">NAME</th>
+        <th style="width: 200px;">RENT TYPE</th>
+        <th style="width: 200px;">STANDARD ROOM</th>
+        <th style="width: 300px;">DESCRIPTION</th>
+        <th style="width: 100px;">PRICE</th>
+        <th style="width: 200px;">ACTION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="facility,loop:${list}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${facility.name}"></td>
+        <td th:text="${facility.rentType.name}"></td>
+        <td th:text="${facility.standardRoom}"></td>
+        <td th:text="${facility.descOtherConvenience}"></td>
+        <td th:text="${facility.cost}"></td>
+        <td>
+            <a class="btn btn-outline-warning" th:attr="onclick=|getInfo('${facility.id}')|">DETAIL</a>
+            <a th:href="@{/edit(id=${facility.id})}" class="btn btn-outline-success">EDIT</a>
+            <a class="btn btn-outline-danger"
+               th:attr="onclick=|delete('${facility.id}','${facility.name}')|">DELETE</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="d-flex justify-content-center align-item-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/facility/list(page=0,valueSearch=${valueSearch})}">First</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/facility/list(page=${currentPage - 1},valueSearch=${valueSearch})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, list.totalPages -1)}"
+                th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{/facility/list(page=${i},valueSearch=${valueSearch})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == list.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/facility/list(page=${currentPage + 1},valueSearch=${valueSearch})}">Next</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == list.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/facility/list(page=${list.totalPages - 1},valueSearch=${valueSearch})}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script th:replace="layout/fragment::importScript"></script>
+<script th:replace="layout/fragment::func"></script>
+</body>
+</html>

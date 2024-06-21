@@ -8,13 +8,13 @@ import org.arthur.ss6_jpa.service.IStudentClassService;
 import org.arthur.ss6_jpa.service.IStudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,13 +44,20 @@ public class StudentController {
     @GetMapping("create")
     public String showAddForm(Model model) {
         model.addAttribute("classList",studentClassService.getList());
-        model.addAttribute("student", new StudentDTO());
+        model.addAttribute("studentDTO", new StudentDTO());
         model.addAttribute("class", new StudentClass());
         return "create";
     }
 
     @PostMapping("create")
-    public String Addnew(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult,Model model, RedirectAttributes redirectAttributes) {
+    public String Addnew(@Valid @ModelAttribute("studentDTO") StudentDTO studentDTO, BindingResult bindingResult,Model model, RedirectAttributes redirectAttributes) {
+//        StudentDTO studentDTO1 = new StudentDTO();
+//        studentDTO1.setEmailList();
+//        studentDTO1.validate(studentDTO,bindingResult);
+        if(studentService.isExitEmail(studentDTO)){
+            FieldError error = new FieldError("studentDTO", "email", "Email đã tồn tại");
+            bindingResult.addError(error);
+        }
         if (bindingResult.hasErrors()){
             model.addAttribute("classList",studentClassService.getList());
             model.addAttribute("class",new StudentClass());
@@ -80,11 +87,15 @@ public class StudentController {
                        @Valid @ModelAttribute("student") StudentDTO studentDTO,
                        BindingResult bindingResult, RedirectAttributes redirectAttributes,
                        Model model) {
+        if(studentService.isExitEmail(studentDTO)){
+            FieldError error = new FieldError("studentDTO", "email", "Email đã tồn tại");
+            bindingResult.addError(error);
+        }
         if (bindingResult.hasErrors()){
             model.addAttribute("classList",studentClassService.getList());
             model.addAttribute("class",new StudentClass());
             model.addAttribute("student",studentDTO);
-            return "create";
+            return "edit";
         }
         studentDTO.setId(id);
         String msg;
@@ -106,4 +117,8 @@ public class StudentController {
         redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/";
     }
+//    @GetMapping("error")
+//    public String returnErrorPage(){
+//        return "error";
+//    }
 }

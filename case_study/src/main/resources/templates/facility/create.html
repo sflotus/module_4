@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{facility/list::title}"></title>
+    <link th:replace="layout/fragment::getBootstrap">
+    <link rel="stylesheet" href="/css/css_form.css">
+
+</head>
+<body>
+<p id="msg" th:text="${msg}" hidden="hidden"></p>
+<div th:replace="layout/fragment::create_search_fragment('/facility/create','/facility/list',${valueSearch})"></div>
+<center>
+    <h1><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/facility/list}">Facility Management</a></h1>
+    <h2>Add new Facility</h2>
+</center>
+<div align="center">
+    <form method="post" th:object="${facilityDTO}" id="form">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><label for="rentType">Rent Type:</label></th>
+                <td>
+                    <select id="rentType" class="btn border border-secondary input-form" th:field="*{rentType}" >
+                        <option th:each="rentType:${listRentType}"
+                                th:value="${rentType.id}"
+                                th:text="${rentType.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="facilityType">Facility Type:</label></th>
+                <td>
+                    <select id="facilityType" class="btn border border-secondary input-form" th:field="*{facilityType}" >
+                        <option th:each="facilityType:${listFacilityType}"
+                                th:value="${facilityType.id}"
+                                th:text="${facilityType.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="name">Facility Name:</label></th>
+                <td>
+                    <input id="name" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{name}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="area">Area</label></th>
+                <td>
+                    <input id="area" class="btn border border-secondary input-form" autocomplete="off" type="number" step="any" th:field="*{area}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="cost">Cost:</label></th>
+                <td>
+                    <input id="cost" class="btn border border-secondary input-form" autocomplete="off" type="number" step="any" th:field="*{cost}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="maxPeople">Max People:</label></th>
+                <td>
+                    <input id="maxPeople" class="btn border border-secondary input-form" autocomplete="off" type="number" step="any" th:field="*{maxPeople}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="standardRoom">Standard Room:</label></th>
+                <td>
+                    <input id="standardRoom" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{standardRoom}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('standardRoom')}" th:errors="*{standardRoom}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="descOtherConvenience">Other Convenience:</label></th>
+                <td>
+                    <input id="descOtherConvenience" class="btn border border-secondary input-form" type="text" th:field="*{descOtherConvenience}" autocomplete="off">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('descOtherConvenience')}" th:errors="*{descOtherConvenience}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="poolArea">Pool Area:</label></th>
+                <td>
+                    <input id="poolArea" class="btn border border-secondary input-form" type="number" step="any" autocomplete="off" th:field="*{poolArea}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="numberOfFloors">Number of Floor:</label></th>
+                <td>
+                    <input id="numberOfFloors" class="btn border border-secondary input-form" type="number" step="any" autocomplete="off" th:field="*{numberOfFloors}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="facilityFree">Facility Free:</label></th>
+                <td>
+                    <input id="facilityFree" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{facilityFree}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('facilityFree')}" th:errors="*{facilityFree}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-outline-warning" type="button" value="Cancel"
+                           onclick="confirmBack('/facility/list')"/>
+                    <input class="btn btn-outline-success" type="submit" value="Save" onclick="confirmSubmit()"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script th:replace="layout/fragment::importScript"></script>
+<script th:replace="layout/fragment::func"></script>
+</body>
+</html>

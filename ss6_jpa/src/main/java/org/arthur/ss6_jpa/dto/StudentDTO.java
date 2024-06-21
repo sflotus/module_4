@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.arthur.ss6_jpa.model.StudentClass;
-import org.arthur.ss6_jpa.service.IStudentService;
-import org.arthur.ss6_jpa.service.imple.StudentService;
+import org.arthur.ss6_jpa.validation.ValidEmail;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class StudentDTO implements Validator {
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentDTO {
     private long id;
 
     @NotBlank(message = "Please input Name")
@@ -20,6 +22,7 @@ public class StudentDTO implements Validator {
     @NotBlank(message = "Please input Email")
     @Size(max =60,message = "Max length is 60 char, please try again." )
     @Pattern(regexp ="^[^@]+@[^@]+\\.[^@]+$" ,message = "Please input right format Email")
+//    @ValidEmail(email=,id=)
     private String email;
     @NotBlank(message = "Please input address")
     private String address;
@@ -78,17 +81,5 @@ public class StudentDTO implements Validator {
         this.studentClass = studentClass;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
 
-    @Override
-    public void validate(Object target, Errors errors) {
-        IStudentService studentService = new StudentService();
-        StudentDTO student = (StudentDTO) target;
-        if(!studentService.findStudentByEmail(student.getEmail()).isEmpty()){
-            errors.rejectValue("email","","Email has been exist");
-        }
-    }
 }

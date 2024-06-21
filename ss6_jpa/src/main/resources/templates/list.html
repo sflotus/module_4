@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/}">Student List</a></h1>
-<div>
+<div th:fragment="creart_search_fragment">
     <nav class="navbar navbar-expand-lg navbar-expand-sm navbar-expand-md bg-body-tertiary">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -23,21 +23,9 @@
                     <div class="ms-5">
                         <a th:href="@{/create}" class="btn btn-outline-success">Add New</a>
                     </div>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="#">Employee</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="#">Customer</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="#">Service</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="#">Contract</a>-->
-<!--                    </li>-->
                 </ul>
-                <form class="d-flex" method="get" th:action="@{/}">
-                    <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search" name="valueSearch">
+                <form class="d-flex" method="get" th:action="@{/employee/list}">
+                    <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search" th:value="" name="valueSearch">
                     <button type="submit" class="btn btn-outline-secondary">Search</button>
                 </form>
             </div>
@@ -47,7 +35,7 @@
 
 <p id="msg" th:text="${msg}" hidden="hidden"></p>
 
-<table class="table table-hover table-striped">
+<table class="table table-hover table-striped" id="tableStudent">
     <thead>
     <tr>
         <th style="width: 100px;">STT</th>
@@ -138,7 +126,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "/delete/" + id,
+                    url: `/delete/${id}`,
                     type: "post",
                     data: id,
                     success: function (data) {
@@ -149,7 +137,7 @@
                             confirmButtonColor: "#3085d6"
                         }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // window.location.href = '/'
+                                    window.location.href = '/'
                                 }
                             }
                         );
@@ -158,6 +146,23 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(()=>{
+        $.ajax(
+            {
+                url:'/api/student',
+                type: 'GET',
+                dataType:'Json',
+                success: function (data){
+                    console.log(data);
+                }
+            }
+        )
+        }
+
+    )
+
 </script>
 </body>
 </html>

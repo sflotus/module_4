@@ -1,5 +1,6 @@
 package org.arthur.ss6_jpa.service;
 
+import org.arthur.ss6_jpa.dto.StudentDTO;
 import org.arthur.ss6_jpa.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,6 @@ public interface IStudentService {
     boolean edit(Student student);
     boolean delete(Student student);
     Page<Student> findStudentByNameContainingAndActive(String name,Pageable pageable);
-    List<Student> findStudentByEmail(String email);
+    boolean isExitEmail(StudentDTO studentDTO);
 
 }

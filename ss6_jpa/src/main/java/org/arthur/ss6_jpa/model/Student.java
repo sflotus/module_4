@@ -1,7 +1,6 @@
 package org.arthur.ss6_jpa.model;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Entity
 public class Student {

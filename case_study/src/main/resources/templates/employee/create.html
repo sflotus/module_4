@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{employee/list::title}"></title>
+    <link th:replace="layout/fragment::getBootstrap">
+    <link rel="stylesheet" href="/css/css_form.css">
+
+</head>
+<body>
+<h1><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/facility/list}">Employee Management</a></h1>
+<h2>Add new Employee</h2>
+<p id="msg" th:text="${msg}" hidden="hidden"></p>
+<div th:replace="layout/fragment::create_search_fragment('/employee/create','/employee/list',${valueSearch})"></div>
+<div align="center">
+    <form method="post" th:object="${employeeDTO}" id="form">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><label for="position">Position:</label></th>
+                <td>
+                    <select id="position" class="btn border border-secondary input-form" th:field="*{position}" >
+                        <option th:each="position:${listPosition}"
+                                th:value="${position.id}"
+                                th:text="${position.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="educationDegree">Education Degree:</label></th>
+                <td>
+                    <select id="educationDegree" class="btn border border-secondary input-form" th:field="*{educationDegree}" >
+                        <option th:each="educationDegree:${listEducationDegree}"
+                                th:value="${educationDegree.id}"
+                                th:text="${educationDegree.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="division">Division:</label></th>
+                <td>
+                    <select id="division" class="btn border border-secondary input-form" th:field="*{division}" >
+                        <option th:each="division:${listDivision}"
+                                th:value="${division.id}"
+                                th:text="${division.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="name">Employee Name:</label></th>
+                <td>
+                    <input id="name" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{name}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="birthDate">Date of Birth:</label></th>
+                <td>
+                    <input id="birthDate" class="btn border border-secondary input-form" type="date" th:field="*{dateOfBirth}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="idCard">ID Card:</label></th>
+                <td>
+                    <input id="idCard" class="btn border border-secondary input-form" autocomplete="off" type="text" th:field="*{idCard}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="salary">Salary:</label></th>
+                <td>
+                    <input id="salary" class="btn border border-secondary input-form" autocomplete="off" type="number" th:field="*{salary}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="phoneNumber">Phone Number:</label></th>
+                <td>
+                    <input id="phoneNumber" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{phoneNumber}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="email">Email:</label></th>
+                <td>
+                    <input id="email" class="btn border border-secondary input-form" type="email" th:field="*{email}" autocomplete="off">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="address">Address:</label></th>
+                <td>
+                    <input id="address" class="btn border border-secondary input-form" type="text" autocomplete="off" th:field="*{address}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-outline-warning" type="button" value="Cancel"
+                           onclick="confirmBack('/employee/list')"/>
+                    <input class="btn btn-outline-success" type="submit" value="Save" onclick="confirmSubmit()"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script th:replace="layout/fragment::importScript"></script>
+<script th:replace="layout/fragment::func"></script>
+</body>
+</html>

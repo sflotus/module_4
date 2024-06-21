@@ -7,4 +7,5 @@ import java.util.List;
 public interface IStudentClassService {
 List<StudentClass> getList();
 boolean addNew(StudentClass studentClass);
+StudentClass findById(Long id);
 }

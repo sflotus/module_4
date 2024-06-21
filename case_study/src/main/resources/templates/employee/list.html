@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+    <link th:replace="layout/fragment::getBootstrap">
+
+</head>
+<body>
+<div th:replace="layout/fragment::create_search_fragment('/employee/create','/employee/list',${valueSearch})"></div>
+<p id="msg" th:text="${msg}" hidden="hidden"></p>
+<table class="table table-hover table-striped" id="tableStudent">
+    <thead>
+    <tr>
+        <th style="width: 50px;">#</th>
+        <th style="width: 200px;">NAME</th>
+        <th style="width: 150px;">DIVISION</th>
+        <th style="width: 200px;">SALARY</th>
+        <th style="width: 200px;">EMAIL</th>
+        <th style="width: 300px;">ADDRESS</th>
+        <th style="width: 200px;">ACTION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee,loop:${list}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.division.name}"></td>
+        <td th:text="${employee.salary} + ' VND'"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.address}"></td>
+        <td>
+            <a class="btn btn-outline-warning" th:attr="onclick=|getInfo('${employee.id}')|">DETAIL</a>
+            <a th:href="@{/edit(id=${employee.id})}" class="btn btn-outline-success">EDIT</a>
+            <a class="btn btn-outline-danger"
+               th:attr="onclick=|delete('${employee.id}','${employee.name}')|">DELETE</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="d-flex justify-content-center align-item-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/employee/list(page=0,valueSearch=${valueSearch})}">First</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/employee/list(page=${currentPage - 1},valueSearch=${valueSearch})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, list.totalPages -1)}"
+                th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{/employee/list(page=${i},valueSearch=${valueSearch})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == list.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/employee/list(page=${currentPage + 1},valueSearch=${valueSearch})}">Next</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == list.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/employee/list(page=${list.totalPages - 1},valueSearch=${valueSearch})}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script th:replace="layout/fragment::importScript"></script>
+<script th:replace="layout/fragment::func"></script>
+</body>
+</html>

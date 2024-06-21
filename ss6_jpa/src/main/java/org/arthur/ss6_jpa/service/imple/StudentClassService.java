@@ -25,4 +25,9 @@ public class StudentClassService implements IStudentClassService {
        }
         return true;
     }
+
+    @Override
+    public StudentClass findById(Long id) {
+        return studentClassRepository.findById(id).orElse(null);
+    }
 }

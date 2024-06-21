@@ -1,5 +1,6 @@
 package org.arthur.ss6_jpa.service.imple;
 
+import org.arthur.ss6_jpa.dto.StudentDTO;
 import org.arthur.ss6_jpa.model.Student;
 import org.arthur.ss6_jpa.repository.IStudentRepository;
 import org.arthur.ss6_jpa.service.IStudentService;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class StudentService implements IStudentService {
@@ -62,7 +64,14 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public List<Student> findStudentByEmail(String email) {
-        return studentRepository.findStudentByEmail(email);
+    public boolean isExitEmail(StudentDTO studentDTO) {
+        if(studentDTO.getId()==0){
+            return studentRepository.existsByEmail(studentDTO.getEmail());
+        } else {
+//            System.out.println(findById(studentDTO.getId()).getEmail().equals(studentDTO.getEmail()));
+//            return findById(studentDTO.getId()).getEmail().equals(studentDTO.getEmail()) ;
+            return Objects.equals(findById(studentDTO.getId()).getEmail(), studentDTO.getEmail());
+        }
+
     }
 }

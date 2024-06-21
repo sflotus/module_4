@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="contract/list::title"></title>
+    <link th:replace="layout/fragment::getBootstrap">
+    <link rel="stylesheet" href="/css/css_form.css">
+
+</head>
+<body>
+<div th:replace="layout/fragment::create_search_fragment('/contract/create','/contract/list',${valueSearch})"></div>
+<div align="center">
+    <form method="post" th:object="${contractDTO}" id="form">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><label for="employee">Employee:</label></th>
+                <td>
+                    <select id="employee" class="btn border border-secondary input-form" th:field="*{employee}" >
+                        <option th:each="employee:${listEmployee}"
+                                th:value="${employee.id}"
+                                th:text="${employee.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="customer">Customer:</label></th>
+                <td>
+                    <select id="customer" class="btn border border-secondary input-form" th:field="*{customer}" >
+                        <option th:each="customer:${listCustomer}"
+                                th:value="${customer.id}"
+                                th:text="${customer.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="facility">Facility:</label></th>
+                <td>
+                    <select id="facility" class="btn border border-secondary input-form" th:field="*{facility}" >
+                        <option th:each="facility:${listFacility}"
+                                th:value="${facility.id}"
+                                th:text="${facility.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="deposit">Deposit:</label></th>
+                <td>
+                    <input id="deposit" class="btn border border-secondary input-form" type="number" th:field="*{deposit}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('deposit')}" th:errors="*{deposit}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="dateStart">Date Start:</label></th>
+                <td>
+                    <input id="dateStart" class="btn border border-secondary input-form" type="date" th:field="*{startDate}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="dateEnd">Date End:</label></th>
+                <td>
+                    <input id="dateEnd" class="btn border border-secondary input-form" type="date" th:field="*{endDate}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <span class="error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-outline-warning" type="button" value="Cancel"
+                           onclick="confirmBack('/contract/list')"/>
+                    <input class="btn btn-outline-success" type="submit" value="Save" onclick="confirmSubmit()"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script th:replace="layout/fragment::importScript"></script>
+
+</body>
+</html>

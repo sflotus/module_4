@@ -14,5 +14,6 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
     @Query(nativeQuery = true, value = "select * from student where active = true")
     Page<Student> findAllByActive(Pageable pageable);
     Page<Student> findStudentByNameContainingAndActive(String name,boolean active,Pageable pageable);
-    List<Student> findStudentByEmail(String email);
+    Student findStudentByEmail(String email);
+    boolean existsByEmail(String email);
 }
